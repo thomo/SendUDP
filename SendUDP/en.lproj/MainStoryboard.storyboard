@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
-        <!--View Controller - Send UDP-->
+        <!--Send Udp View Controller - Send UDP-->
         <scene sceneID="Sou-tL-YSm">
             <objects>
-                <viewController id="PO9-gH-gIc" sceneMemberID="viewController">
+                <viewController id="PO9-gH-gIc" customClass="SendUdpViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="snL-F3-TwH">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -41,6 +41,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="configButton" destination="UfK-4I-apw" id="oQ1-cE-MjF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A6l-3J-b9v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

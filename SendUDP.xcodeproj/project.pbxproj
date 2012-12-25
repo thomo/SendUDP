@@ -17,6 +17,7 @@
 		2D565C711689E51E00B43C49 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D565C701689E51E00B43C49 /* Default@2x.png */; };
 		2D565C731689E51E00B43C49 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D565C721689E51E00B43C49 /* Default-568h@2x.png */; };
 		2D565C761689E51E00B43C49 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D565C741689E51E00B43C49 /* MainStoryboard.storyboard */; };
+		2D565C811689EB7600B43C49 /* SendUdpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D565C801689EB7600B43C49 /* SendUdpViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,8 @@
 		2D565C701689E51E00B43C49 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		2D565C721689E51E00B43C49 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2D565C751689E51E00B43C49 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		2D565C7F1689EB7600B43C49 /* SendUdpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendUdpViewController.h; sourceTree = "<group>"; };
+		2D565C801689EB7600B43C49 /* SendUdpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendUdpViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,8 @@
 				2D565C6B1689E51E00B43C49 /* AppDelegate.h */,
 				2D565C6C1689E51E00B43C49 /* AppDelegate.m */,
 				2D565C741689E51E00B43C49 /* MainStoryboard.storyboard */,
+				2D565C7F1689EB7600B43C49 /* SendUdpViewController.h */,
+				2D565C801689EB7600B43C49 /* SendUdpViewController.m */,
 				2D565C631689E51E00B43C49 /* Supporting Files */,
 			);
 			path = SendUDP;
@@ -170,6 +175,7 @@
 			files = (
 				2D565C691689E51E00B43C49 /* main.m in Sources */,
 				2D565C6D1689E51E00B43C49 /* AppDelegate.m in Sources */,
+				2D565C811689EB7600B43C49 /* SendUdpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
