@@ -17,7 +17,6 @@
 		2D565C711689E51E00B43C49 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D565C701689E51E00B43C49 /* Default@2x.png */; };
 		2D565C731689E51E00B43C49 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D565C721689E51E00B43C49 /* Default-568h@2x.png */; };
 		2D565C761689E51E00B43C49 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D565C741689E51E00B43C49 /* MainStoryboard.storyboard */; };
-		2D565C791689E51E00B43C49 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D565C781689E51E00B43C49 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +34,6 @@
 		2D565C701689E51E00B43C49 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		2D565C721689E51E00B43C49 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2D565C751689E51E00B43C49 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		2D565C771689E51E00B43C49 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2D565C781689E51E00B43C49 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +83,6 @@
 				2D565C6B1689E51E00B43C49 /* AppDelegate.h */,
 				2D565C6C1689E51E00B43C49 /* AppDelegate.m */,
 				2D565C741689E51E00B43C49 /* MainStoryboard.storyboard */,
-				2D565C771689E51E00B43C49 /* ViewController.h */,
-				2D565C781689E51E00B43C49 /* ViewController.m */,
 				2D565C631689E51E00B43C49 /* Supporting Files */,
 			);
 			path = SendUDP;
@@ -175,7 +170,6 @@
 			files = (
 				2D565C691689E51E00B43C49 /* main.m in Sources */,
 				2D565C6D1689E51E00B43C49 /* AppDelegate.m in Sources */,
-				2D565C791689E51E00B43C49 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +251,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SendUDP/SendUDP-Prefix.pch";
 				INFOPLIST_FILE = "SendUDP/SendUDP-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -268,6 +263,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SendUDP/SendUDP-Prefix.pch";
 				INFOPLIST_FILE = "SendUDP/SendUDP-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
