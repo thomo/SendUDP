@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Configuration.h"
 
 @interface ConfigurationViewController : UITableViewController
-
+@property (nonatomic, retain) Configuration *configuration;
 @end

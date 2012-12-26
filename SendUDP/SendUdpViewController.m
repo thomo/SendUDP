@@ -7,12 +7,26 @@
 //
 
 #import "SendUdpViewController.h"
+#import "ConfigurationViewController.h"
+#import "Configuration.h"
 
 @interface SendUdpViewController ()
-
+@property (nonatomic, retain) Configuration *configuration;
 @end
 
 @implementation SendUdpViewController
+
+NSString *segueToConfigurationView = @"configure";
+
+-(Configuration *) configuration
+{
+    if (! _configuration)
+    {
+        [self setConfiguration:[Configuration alloc]];
+    }
+    return _configuration;
+}
+
 
 - (void)viewDidLoad
 {
@@ -39,5 +53,13 @@
 - (void)viewDidUnload {
     [self setConfigButton:nil];
     [super viewDidUnload];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:segueToConfigurationView]) {
+        ConfigurationViewController *configViewController = [segue destinationViewController];
+        
+        configViewController.configuration = [self configuration];
+    }
 }
 @end

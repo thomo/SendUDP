@@ -19,6 +19,7 @@
 		2D565C761689E51E00B43C49 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D565C741689E51E00B43C49 /* MainStoryboard.storyboard */; };
 		2D565C811689EB7600B43C49 /* SendUdpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D565C801689EB7600B43C49 /* SendUdpViewController.m */; };
 		2D565C841689EE1600B43C49 /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D565C831689EE1600B43C49 /* ConfigurationViewController.m */; };
+		2D565C87168AD83700B43C49 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D565C86168AD83700B43C49 /* Configuration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,8 @@
 		2D565C801689EB7600B43C49 /* SendUdpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendUdpViewController.m; sourceTree = "<group>"; };
 		2D565C821689EE1600B43C49 /* ConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationViewController.h; sourceTree = "<group>"; };
 		2D565C831689EE1600B43C49 /* ConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationViewController.m; sourceTree = "<group>"; };
+		2D565C85168AD83700B43C49 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
+		2D565C86168AD83700B43C49 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,11 +91,13 @@
 			children = (
 				2D565C6B1689E51E00B43C49 /* AppDelegate.h */,
 				2D565C6C1689E51E00B43C49 /* AppDelegate.m */,
+				2D565C85168AD83700B43C49 /* Configuration.h */,
+				2D565C86168AD83700B43C49 /* Configuration.m */,
+				2D565C821689EE1600B43C49 /* ConfigurationViewController.h */,
+				2D565C831689EE1600B43C49 /* ConfigurationViewController.m */,
 				2D565C741689E51E00B43C49 /* MainStoryboard.storyboard */,
 				2D565C7F1689EB7600B43C49 /* SendUdpViewController.h */,
 				2D565C801689EB7600B43C49 /* SendUdpViewController.m */,
-				2D565C821689EE1600B43C49 /* ConfigurationViewController.h */,
-				2D565C831689EE1600B43C49 /* ConfigurationViewController.m */,
 				2D565C631689E51E00B43C49 /* Supporting Files */,
 			);
 			path = SendUDP;
@@ -182,6 +187,7 @@
 				2D565C6D1689E51E00B43C49 /* AppDelegate.m in Sources */,
 				2D565C811689EB7600B43C49 /* SendUdpViewController.m in Sources */,
 				2D565C841689EE1600B43C49 /* ConfigurationViewController.m in Sources */,
+				2D565C87168AD83700B43C49 /* Configuration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

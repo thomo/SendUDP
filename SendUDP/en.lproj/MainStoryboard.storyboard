@@ -20,10 +20,10 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iJR-Z8-9tl">
-                                <rect key="frame" x="103" y="70" width="115" height="44"/>
+                                <rect key="frame" x="130" y="70" width="61" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Send to AVR">
+                                <state key="normal" title="Send">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -37,7 +37,7 @@
                     <navigationItem key="navigationItem" title="Send UDP" id="Uxu-YM-His">
                         <barButtonItem key="rightBarButtonItem" title="Config" id="UfK-4I-apw">
                             <connections>
-                                <segue destination="N9S-7z-FEz" kind="push" id="GA1-O4-qwq"/>
+                                <segue destination="N9S-7z-FEz" kind="push" identifier="configure" id="GA1-O4-qwq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -49,10 +49,10 @@
             </objects>
             <point key="canvasLocation" x="795" y="267"/>
         </scene>
-        <!--Table View Controller - AVR-NET-IO-->
+        <!--Configuration View Controller - Receiver-->
         <scene sceneID="A9i-n6-kxA">
             <objects>
-                <tableViewController id="N9S-7z-FEz" sceneMemberID="viewController">
+                <tableViewController id="N9S-7z-FEz" customClass="ConfigurationViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="16L-lj-3gO">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -118,7 +118,7 @@
                             <outlet property="delegate" destination="N9S-7z-FEz" id="Omc-AC-EyZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="AVR-NET-IO" id="nco-OX-lC0"/>
+                    <navigationItem key="navigationItem" title="Receiver" id="nco-OX-lC0"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xze-tI-wMq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -140,6 +140,17 @@
             <point key="canvasLocation" x="256" y="267"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="ConfigurationViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ConfigurationViewController.h"/>
+        </class>
+        <class className="SendUdpViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SendUdpViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="configButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
