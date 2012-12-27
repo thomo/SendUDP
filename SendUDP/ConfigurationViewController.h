@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Configuration.h"
+#import "EditableTableViewCell.h"
 
 @interface ConfigurationViewController : UITableViewController
 @property (nonatomic, retain) Configuration *configuration;
+
+@property (weak, nonatomic) IBOutlet EditableTableViewCell *ipAddress;
+@property (weak, nonatomic) IBOutlet EditableTableViewCell *port;
+
 @end

@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface Configuration : NSObject
-
+@property (nonatomic, retain) NSString *ipAddress;
+@property (nonatomic, retain) NSString *port;
 @end
