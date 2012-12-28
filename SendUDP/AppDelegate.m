@@ -7,12 +7,40 @@
 //
 
 #import "AppDelegate.h"
+#import "SendUdpViewController.h"
 
 @implementation AppDelegate
+
+static NSString *PREFERENCE_RECEIVER_IPADDRESS = @"receiver_ip";
+static NSString *PREFERENCE_RECEIVER_PORT = @"receiver_port";
+
+- (void)loadPreferences{
+    NSLog(@"loadPreferences");
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [self.configuration setIpAddress:[defaults stringForKey:PREFERENCE_RECEIVER_IPADDRESS]];
+    [self.configuration setPort:[defaults stringForKey:PREFERENCE_RECEIVER_PORT]];
+}
+
+- (void)savePreferences{
+    NSLog(@"savePreferences");
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[self.configuration ipAddress] forKey:PREFERENCE_RECEIVER_IPADDRESS];
+    [defaults setValue:[self.configuration port] forKey:PREFERENCE_RECEIVER_PORT];
+}
+
+#pragma mark -
+#pragma mark standard application interface
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [self setConfiguration:[Configuration alloc]];
+    [self loadPreferences];
+    
+    UINavigationController* navController = (UINavigationController*)  self.window.rootViewController;
+    SendUdpViewController* mainController = (SendUdpViewController*)  navController.topViewController;
+    [mainController setConfiguration:self.configuration];
+    
     return YES;
 }
 							
@@ -20,6 +48,7 @@
 {
 	// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 	// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [self savePreferences];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -41,6 +70,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self setConfiguration:nil];
 }
 
 @end

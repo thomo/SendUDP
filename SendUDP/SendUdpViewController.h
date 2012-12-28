@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Configuration.h"
 
 @interface SendUdpViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *configButton;
+@property (nonatomic, retain) Configuration *configuration;
+
 @end
