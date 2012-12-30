@@ -27,6 +27,8 @@
 		2D565C841689EE1600B43C49 /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D565C831689EE1600B43C49 /* ConfigurationViewController.m */; };
 		2D565C87168AD83700B43C49 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D565C86168AD83700B43C49 /* Configuration.m */; };
 		2D565C96168B3A4300B43C49 /* EditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D565C95168B3A4300B43C49 /* EditableTableViewCell.m */; };
+		2DE079FD169059AB006F364D /* IpPortValidatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE079FC169059AB006F364D /* IpPortValidatorTest.m */; };
+		2DE07A0116905E70006F364D /* IpPortValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE07A0016905E70006F364D /* IpPortValidator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,9 @@
 		2D565C86168AD83700B43C49 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
 		2D565C94168B3A4300B43C49 /* EditableTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditableTableViewCell.h; sourceTree = "<group>"; };
 		2D565C95168B3A4300B43C49 /* EditableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditableTableViewCell.m; sourceTree = "<group>"; };
+		2DE079FC169059AB006F364D /* IpPortValidatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpPortValidatorTest.m; sourceTree = "<group>"; };
+		2DE079FF16905E70006F364D /* IpPortValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpPortValidator.h; sourceTree = "<group>"; };
+		2DE07A0016905E70006F364D /* IpPortValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpPortValidator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +106,7 @@
 			children = (
 				2D2D33F4168D9DE00000017F /* Supporting Files */,
 				2D2D3401168DA2040000017F /* IpAddressValidatorTest.m */,
+				2DE079FC169059AB006F364D /* IpPortValidatorTest.m */,
 			);
 			path = SendUDPTests;
 			sourceTree = "<group>";
@@ -162,6 +168,8 @@
 				2D565C631689E51E00B43C49 /* Supporting Files */,
 				2D2D3405168DE8CD0000017F /* IpAddressValidator.h */,
 				2D2D3406168DE8CE0000017F /* IpAddressValidator.m */,
+				2DE079FF16905E70006F364D /* IpPortValidator.h */,
+				2DE07A0016905E70006F364D /* IpPortValidator.m */,
 			);
 			path = SendUDP;
 			sourceTree = "<group>";
@@ -291,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D2D3402168DA2040000017F /* IpAddressValidatorTest.m in Sources */,
+				2DE079FD169059AB006F364D /* IpPortValidatorTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +314,7 @@
 				2D565C87168AD83700B43C49 /* Configuration.m in Sources */,
 				2D565C96168B3A4300B43C49 /* EditableTableViewCell.m in Sources */,
 				2D2D3407168DE8CE0000017F /* IpAddressValidator.m in Sources */,
+				2DE07A0116905E70006F364D /* IpPortValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +474,7 @@
 				2D2D33FF168D9DE00000017F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2D565C521689E51E00B43C49 /* Build configuration list for PBXProject "SendUDP" */ = {
 			isa = XCConfigurationList;
