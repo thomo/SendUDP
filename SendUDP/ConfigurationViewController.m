@@ -8,6 +8,7 @@
 
 #import "ConfigurationViewController.h"
 #import "IpAddressValidator.h"
+#import "IpPortValidator.h"
 
 @interface ConfigurationViewController ()
 @end
@@ -43,7 +44,10 @@ static NSString *EditableCellIdentifier = @"EditableCellIdentifier";
         [self.configuration setIpAddress:ipAddress];
     }
     NSString *port = [self.port.textField text];
-    [self.configuration setPort:port];
+    IpPortValidator *portValidator = [IpPortValidator alloc];
+    if ([portValidator isValid:port]) {
+        [self.configuration setPort:port];
+    }
     [super viewWillDisappear:animated];
 }
 
