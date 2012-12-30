@@ -34,12 +34,6 @@ IpAddressValidator *cut;
     cut = [IpAddressValidator alloc];
 }
 
-- (void)tearDown
-{
-    // Tear-down code here.
-    [super tearDown];
-}
-
 - (void)testShouldReturnFalseWhenValidatingIpContainsLetter {
     STAssertFalse([cut isValid:IP_WITH_LETTER], @"%@ with letter is invalid", IP_WITH_LETTER);
 }
