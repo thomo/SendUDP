@@ -37,8 +37,13 @@ static NSString *EditableCellIdentifier = @"EditableCellIdentifier";
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self.configuration setIpAddress:[self.ipAddress.textField text]];
-    [self.configuration setPort:[self.port.textField text]];
+    NSString *ipAddress = [self.ipAddress.textField text];
+    IpAddressValidator *ipValidator = [IpAddressValidator alloc];
+    if ([ipValidator isValid:ipAddress]) {
+        [self.configuration setIpAddress:ipAddress];
+    }
+    NSString *port = [self.port.textField text];
+    [self.configuration setPort:port];
     [super viewWillDisappear:animated];
 }
 
