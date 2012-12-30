@@ -7,9 +7,9 @@
 //
 
 #import "ConfigurationViewController.h"
+#import "IpAddressValidator.h"
 
 @interface ConfigurationViewController ()
-
 @end
 
 @implementation ConfigurationViewController
@@ -19,14 +19,9 @@ static NSString *EditableCellIdentifier = @"EditableCellIdentifier";
 #define EDITABLECELLTAG_TITLE      10
 #define EDITABLECELLTAG_TEXTFIELD  20
 
-- (void)configureView {
-    // Update the user interface for the detail item.
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self configureView];
 }
 
 - (void)didReceiveMemoryWarning {

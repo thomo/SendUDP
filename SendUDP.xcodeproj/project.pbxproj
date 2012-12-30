@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D2D33F0168D9DE00000017F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D2D33EF168D9DE00000017F /* SenTestingKit.framework */; };
+		2D2D33F1168D9DE00000017F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D565C5C1689E51E00B43C49 /* UIKit.framework */; };
+		2D2D33F2168D9DE00000017F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D565C5E1689E51E00B43C49 /* Foundation.framework */; };
+		2D2D33F8168D9DE00000017F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2D2D33F6168D9DE00000017F /* InfoPlist.strings */; };
+		2D2D3402168DA2040000017F /* IpAddressValidatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2D3401168DA2040000017F /* IpAddressValidatorTest.m */; };
+		2D2D3407168DE8CE0000017F /* IpAddressValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2D3406168DE8CE0000017F /* IpAddressValidator.m */; };
 		2D565C5D1689E51E00B43C49 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D565C5C1689E51E00B43C49 /* UIKit.framework */; };
 		2D565C5F1689E51E00B43C49 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D565C5E1689E51E00B43C49 /* Foundation.framework */; };
 		2D565C611689E51E00B43C49 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D565C601689E51E00B43C49 /* CoreGraphics.framework */; };
@@ -23,7 +29,25 @@
 		2D565C96168B3A4300B43C49 /* EditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D565C95168B3A4300B43C49 /* EditableTableViewCell.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2D2D3403168DA4600000017F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D565C4F1689E51E00B43C49 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2D565C571689E51E00B43C49;
+			remoteInfo = SendUDP;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		2D2D33EE168D9DE00000017F /* SendUDPTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SendUDPTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D2D33EF168D9DE00000017F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		2D2D33F5168D9DE00000017F /* SendUDPTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SendUDPTests-Info.plist"; sourceTree = "<group>"; };
+		2D2D33F7168D9DE00000017F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2D2D33FC168D9DE00000017F /* SendUDPTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SendUDPTests-Prefix.pch"; sourceTree = "<group>"; };
+		2D2D3401168DA2040000017F /* IpAddressValidatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpAddressValidatorTest.m; sourceTree = "<group>"; };
+		2D2D3405168DE8CD0000017F /* IpAddressValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpAddressValidator.h; sourceTree = "<group>"; };
+		2D2D3406168DE8CE0000017F /* IpAddressValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpAddressValidator.m; sourceTree = "<group>"; };
 		2D565C581689E51E00B43C49 /* SendUDP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SendUDP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D565C5C1689E51E00B43C49 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2D565C5E1689E51E00B43C49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -49,6 +73,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2D2D33EA168D9DE00000017F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D2D33F0168D9DE00000017F /* SenTestingKit.framework in Frameworks */,
+				2D2D33F1168D9DE00000017F /* UIKit.framework in Frameworks */,
+				2D2D33F2168D9DE00000017F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2D565C551689E51E00B43C49 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -62,10 +96,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D2D33F3168D9DE00000017F /* SendUDPTests */ = {
+			isa = PBXGroup;
+			children = (
+				2D2D33F4168D9DE00000017F /* Supporting Files */,
+				2D2D3401168DA2040000017F /* IpAddressValidatorTest.m */,
+			);
+			path = SendUDPTests;
+			sourceTree = "<group>";
+		};
+		2D2D33F4168D9DE00000017F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2D2D33F5168D9DE00000017F /* SendUDPTests-Info.plist */,
+				2D2D33F6168D9DE00000017F /* InfoPlist.strings */,
+				2D2D33FC168D9DE00000017F /* SendUDPTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		2D565C4D1689E51E00B43C49 = {
 			isa = PBXGroup;
 			children = (
 				2D565C621689E51E00B43C49 /* SendUDP */,
+				2D2D33F3168D9DE00000017F /* SendUDPTests */,
 				2D565C5B1689E51E00B43C49 /* Frameworks */,
 				2D565C591689E51E00B43C49 /* Products */,
 			);
@@ -75,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				2D565C581689E51E00B43C49 /* SendUDP.app */,
+				2D2D33EE168D9DE00000017F /* SendUDPTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -85,6 +140,7 @@
 				2D565C5C1689E51E00B43C49 /* UIKit.framework */,
 				2D565C5E1689E51E00B43C49 /* Foundation.framework */,
 				2D565C601689E51E00B43C49 /* CoreGraphics.framework */,
+				2D2D33EF168D9DE00000017F /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -104,6 +160,8 @@
 				2D565C7F1689EB7600B43C49 /* SendUdpViewController.h */,
 				2D565C801689EB7600B43C49 /* SendUdpViewController.m */,
 				2D565C631689E51E00B43C49 /* Supporting Files */,
+				2D2D3405168DE8CD0000017F /* IpAddressValidator.h */,
+				2D2D3406168DE8CE0000017F /* IpAddressValidator.m */,
 			);
 			path = SendUDP;
 			sourceTree = "<group>";
@@ -125,6 +183,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2D2D33ED168D9DE00000017F /* SendUDPTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2D2D33FD168D9DE00000017F /* Build configuration list for PBXNativeTarget "SendUDPTests" */;
+			buildPhases = (
+				2D2D33E9168D9DE00000017F /* Sources */,
+				2D2D33EA168D9DE00000017F /* Frameworks */,
+				2D2D33EB168D9DE00000017F /* Resources */,
+				2D2D33EC168D9DE00000017F /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2D2D3404168DA4600000017F /* PBXTargetDependency */,
+			);
+			name = SendUDPTests;
+			productName = SendUDPTests;
+			productReference = 2D2D33EE168D9DE00000017F /* SendUDPTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		2D565C571689E51E00B43C49 /* SendUDP */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D565C7C1689E51E00B43C49 /* Build configuration list for PBXNativeTarget "SendUDP" */;
@@ -164,11 +241,20 @@
 			projectRoot = "";
 			targets = (
 				2D565C571689E51E00B43C49 /* SendUDP */,
+				2D2D33ED168D9DE00000017F /* SendUDPTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2D2D33EB168D9DE00000017F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D2D33F8168D9DE00000017F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2D565C561689E51E00B43C49 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -183,7 +269,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2D2D33EC168D9DE00000017F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		2D2D33E9168D9DE00000017F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D2D3402168DA2040000017F /* IpAddressValidatorTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2D565C541689E51E00B43C49 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -194,12 +304,29 @@
 				2D565C841689EE1600B43C49 /* ConfigurationViewController.m in Sources */,
 				2D565C87168AD83700B43C49 /* Configuration.m in Sources */,
 				2D565C96168B3A4300B43C49 /* EditableTableViewCell.m in Sources */,
+				2D2D3407168DE8CE0000017F /* IpAddressValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		2D2D3404168DA4600000017F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2D565C571689E51E00B43C49 /* SendUDP */;
+			targetProxy = 2D2D3403168DA4600000017F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		2D2D33F6168D9DE00000017F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2D2D33F7168D9DE00000017F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		2D565C651689E51E00B43C49 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -219,6 +346,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2D2D33FE168D9DE00000017F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SendUDP.app/SendUDP";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SendUDPTests/SendUDPTests-Prefix.pch";
+				INFOPLIST_FILE = "SendUDPTests/SendUDPTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		2D2D33FF168D9DE00000017F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SendUDP.app/SendUDP";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SendUDPTests/SendUDPTests-Prefix.pch";
+				INFOPLIST_FILE = "SendUDPTests/SendUDPTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		2D565C7A1689E51E00B43C49 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -241,7 +402,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -262,7 +423,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -296,6 +457,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2D2D33FD168D9DE00000017F /* Build configuration list for PBXNativeTarget "SendUDPTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D2D33FE168D9DE00000017F /* Debug */,
+				2D2D33FF168D9DE00000017F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		2D565C521689E51E00B43C49 /* Build configuration list for PBXProject "SendUDP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
