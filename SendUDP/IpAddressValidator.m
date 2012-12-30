@@ -11,16 +11,8 @@
 @implementation IpAddressValidator
 
 - (BOOL)isValid:(NSString *)ipAddress {
-    BOOL result = false;
-    
-    if ([ipAddress length] == 0 ) {
-        result = false;
-    } else {
-        NSPredicate *regExpPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"(\\d{1,3}).(\\d{1,3}).(\\d{1,3}).(\\d{1,3})"];
-        result = [regExpPredicate evaluateWithObject:ipAddress];
-    }
-    
-    return result;
+    NSPredicate *regExpPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])"];
+    return [regExpPredicate evaluateWithObject:ipAddress];
 }
 
 @end
