@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+NSString* const ConfigurationHasChangedNotification;
+
 @interface Configuration : NSObject
 @property (nonatomic, retain) NSString *ipAddress;
 @property (nonatomic, retain) NSString *port;
+
 @end

@@ -8,6 +8,26 @@
 
 #import "Configuration.h"
 
+NSString* const ConfigurationHasChangedNotification = @"ConfigurationHasChangedNotification";
+
 @implementation Configuration
+
+- (void)notifyObservers {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ConfigurationHasChangedNotification object:nil];
+}
+
+- (void)setIpAddress:(NSString *)ipAddress {
+    if (![ipAddress isEqualToString:_ipAddress]) {
+        _ipAddress = ipAddress;
+        [self notifyObservers];
+    }
+}
+
+- (void)setPort:(NSString *)port {
+    if (![port isEqualToString:_port]) {
+        _port = port;
+        [self notifyObservers];
+    }
+}
 
 @end

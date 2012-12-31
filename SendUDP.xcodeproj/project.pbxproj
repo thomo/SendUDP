@@ -35,6 +35,7 @@
 		2DE07A131690AB5D006F364D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DE07A0D1690AB5D006F364D /* Icon@2x.png */; };
 		2DE07A141690AB5D006F364D /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 2DE07A0E1690AB5D006F364D /* iTunesArtwork */; };
 		2DE07A151690AB5D006F364D /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DE07A0F1690AB5D006F364D /* iTunesArtwork@2x.png */; };
+		2DE07A181690AD85006F364D /* ConfigurationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE07A171690AD85006F364D /* ConfigurationTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		2DE07A0D1690AB5D006F364D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		2DE07A0E1690AB5D006F364D /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		2DE07A0F1690AB5D006F364D /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		2DE07A171690AD85006F364D /* ConfigurationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				2D2D33F4168D9DE00000017F /* Supporting Files */,
+				2DE07A171690AD85006F364D /* ConfigurationTest.m */,
 				2D2D3401168DA2040000017F /* IpAddressValidatorTest.m */,
 				2DE079FC169059AB006F364D /* IpPortValidatorTest.m */,
 			);
@@ -332,6 +335,7 @@
 			files = (
 				2D2D3402168DA2040000017F /* IpAddressValidatorTest.m in Sources */,
 				2DE079FD169059AB006F364D /* IpPortValidatorTest.m in Sources */,
+				2DE07A181690AD85006F364D /* ConfigurationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
