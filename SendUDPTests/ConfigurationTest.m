@@ -20,7 +20,6 @@ static NSString * const NEW_IP = @"1.0.0.1";
 static NSString * const DEFAULT_PORT = @"11111";
 static NSString * const NEW_PORT = @"11112";
 
-
 Configuration *cut;
 int changeCount;
 
@@ -35,13 +34,14 @@ int changeCount;
 
     changeCount = 0;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configurationHasChanged:) name:ConfigurationHasChangedNotification object:nil];
+    [cut addObserver:self forKeyPath:@"ipAddress" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
+    [cut addObserver:self forKeyPath:@"port" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
 }
 
 - (void)tearDown
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    [cut removeObserver:self forKeyPath:@"port"];
+    [cut removeObserver:self forKeyPath:@"ipAddress"];
     [super tearDown];
 }
 
@@ -50,23 +50,17 @@ int changeCount;
     STAssertEquals(changeCount, 1, @"Configuration should notify about change.");
 }
 
-- (void)testShouldNotNotifyObserverWhenSetSameIp {
-    [cut setIpAddress:DEFAULT_IP];
-    STAssertEquals(changeCount, 0, @"Configuration should not notify about change.");
-}
-
 - (void)testShouldNotifyObserverWhenSetNewPort {
     [cut setPort:NEW_PORT];
     STAssertEquals(changeCount, 1, @"Configuration should notify about change.");
 }
 
-- (void)testShouldNotNotifyObserverWhenSetSamePort {
-    [cut setPort:DEFAULT_PORT];
-    STAssertEquals(changeCount, 0, @"Configuration should not notify about change.");
-}
-
 - (void)configurationHasChanged:(NSNotification*)notification {
     ++changeCount;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    [self configurationHasChanged:NULL];
 }
 
 @end

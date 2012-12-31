@@ -169,23 +169,23 @@
 		2D565C621689E51E00B43C49 /* SendUDP */ = {
 			isa = PBXGroup;
 			children = (
-				2DE07A161690AB64006F364D /* Icons */,
-				2D565C631689E51E00B43C49 /* Supporting Files */,
-				2D565C94168B3A4300B43C49 /* EditableTableViewCell.h */,
-				2D565C95168B3A4300B43C49 /* EditableTableViewCell.m */,
 				2D565C6B1689E51E00B43C49 /* AppDelegate.h */,
 				2D565C6C1689E51E00B43C49 /* AppDelegate.m */,
 				2D565C85168AD83700B43C49 /* Configuration.h */,
 				2D565C86168AD83700B43C49 /* Configuration.m */,
 				2D565C821689EE1600B43C49 /* ConfigurationViewController.h */,
 				2D565C831689EE1600B43C49 /* ConfigurationViewController.m */,
-				2D565C741689E51E00B43C49 /* MainStoryboard.storyboard */,
-				2D565C7F1689EB7600B43C49 /* SendUdpViewController.h */,
-				2D565C801689EB7600B43C49 /* SendUdpViewController.m */,
+				2D565C94168B3A4300B43C49 /* EditableTableViewCell.h */,
+				2D565C95168B3A4300B43C49 /* EditableTableViewCell.m */,
+				2DE07A161690AB64006F364D /* Icons */,
 				2D2D3405168DE8CD0000017F /* IpAddressValidator.h */,
 				2D2D3406168DE8CE0000017F /* IpAddressValidator.m */,
 				2DE079FF16905E70006F364D /* IpPortValidator.h */,
 				2DE07A0016905E70006F364D /* IpPortValidator.m */,
+				2D565C741689E51E00B43C49 /* MainStoryboard.storyboard */,
+				2D565C7F1689EB7600B43C49 /* SendUdpViewController.h */,
+				2D565C801689EB7600B43C49 /* SendUdpViewController.m */,
+				2D565C631689E51E00B43C49 /* Supporting Files */,
 			);
 			path = SendUDP;
 			sourceTree = "<group>";
