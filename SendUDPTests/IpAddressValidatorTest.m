@@ -48,7 +48,6 @@ IpAddressValidator *cut;
 
 - (void)testShouldReturnTrueWhenShortIp {
     STAssertTrue([cut isValid:IP_VALID_SHORT], @"%@ is a valid IP", IP_VALID_SHORT);
-    NSLog(@"done"); // workaround to deal with "XCode problem: testShouldReturnTrueWhenShortIp did not finish"
 }
 
 - (void)testShouldReturnFalseWhenIpContainsToFewNumbers {

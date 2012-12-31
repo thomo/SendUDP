@@ -39,6 +39,7 @@ IpPortValidator *cut;
 
 - (void)testShouldReturnTrueWhenIsValid {
     STAssertTrue([cut isValid:PORT_8888], @"%@ is valid", PORT_8888);
+    [NSThread sleepForTimeInterval:1.0]; // workaround to deal with "XCode problem: test did not finish"
 }
 
 
