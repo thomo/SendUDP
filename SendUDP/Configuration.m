@@ -10,4 +10,8 @@
 
 @implementation Configuration
 
+-(BOOL)isValid {
+    return [self ipAddress] != NULL && [self port] != NULL;
+}
+
 @end

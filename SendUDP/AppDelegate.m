@@ -15,14 +15,12 @@ static NSString *PREFERENCE_RECEIVER_IPADDRESS = @"receiver_ip";
 static NSString *PREFERENCE_RECEIVER_PORT = @"receiver_port";
 
 - (void)loadPreferences{
-    NSLog(@"loadPreferences");
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [self.configuration setIpAddress:[defaults stringForKey:PREFERENCE_RECEIVER_IPADDRESS]];
     [self.configuration setPort:[defaults stringForKey:PREFERENCE_RECEIVER_PORT]];
 }
 
 - (void)savePreferences{
-    NSLog(@"savePreferences");
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:[self.configuration ipAddress] forKey:PREFERENCE_RECEIVER_IPADDRESS];
     [defaults setValue:[self.configuration port] forKey:PREFERENCE_RECEIVER_PORT];

@@ -12,4 +12,6 @@
 @property (nonatomic, retain) NSString *ipAddress;
 @property (nonatomic, retain) NSString *port;
 
+- (BOOL)isValid;
+
 @end

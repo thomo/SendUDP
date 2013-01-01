@@ -30,21 +30,27 @@ NSString* const segueToConfigurationView = @"configure";
 #pragma mark communication
 - (void)setupSocketAndSrvAddr {
     [self releaseSocketAndSrvAddr];
-    
-    socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_DGRAM, IPPROTO_UDP, 0, NULL, NULL);
-    
-    struct sockaddr_in addr;
-	memset(&addr, 0, sizeof(addr));
-	addr.sin_len = sizeof(addr);
-	addr.sin_family = AF_INET;
-	addr.sin_port = htons([[[self configuration] port] intValue]);
-	addr.sin_addr.s_addr = inet_addr([[[self configuration] ipAddress] UTF8String]);
-	srvAddr = addr.sin_addr.s_addr != INADDR_NONE ? CFDataCreate(NULL, (const UInt8*)&addr, sizeof(addr)) : NULL;
+
+    if ([[self configuration] isValid]) {
+        socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_DGRAM, IPPROTO_UDP, 0, NULL, NULL);
+
+        struct sockaddr_in addr;
+        memset(&addr, 0, sizeof(addr));
+        addr.sin_len = sizeof(addr);
+        addr.sin_family = AF_INET;
+        addr.sin_port = htons([[[self configuration] port] intValue]);
+        addr.sin_addr.s_addr = inet_addr([[[self configuration] ipAddress] UTF8String]);
+        srvAddr = addr.sin_addr.s_addr != INADDR_NONE ? CFDataCreate(NULL, (const UInt8*)&addr, sizeof(addr)) : NULL;
+    }
 }
 
 - (void)releaseSocketAndSrvAddr {
-    if (socket) CFRelease(socket);
-	if (srvAddr) CFRelease(srvAddr);
+    if (socket) {
+        CFRelease(socket); socket = NULL;
+    }
+	if (srvAddr) {
+        CFRelease(srvAddr); srvAddr = NULL;
+    }
 }
 
 #pragma mark -
@@ -111,20 +117,36 @@ NSString* const segueToConfigurationView = @"configure";
 }
 
 - (void)updateStatus {
-    [[self sendButton] setEnabled:[self enableSendButton]];
-    [self setStatusMessage:@"" withColor:[UIColor blackColor]];
+    [[self sendButton] setEnabled:[self readyToSend]];
+    if ([self readyToSend]) {
+        [self setStatusMessage:@"" withColor:[UIColor blackColor]];
+    } else {
+        [self setStatusMessage:@"Please enter valid receiver configuration." withColor:[UIColor blackColor]];
+    }
 }
 
-- (BOOL)enableSendButton {
+- (BOOL)readyToSend{
     return socket != NULL && srvAddr != NULL;
 }
 
 - (void)setSuccessMessage:(NSString *)message {
-    [self setStatusMessage:message withColor:[UIColor blackColor]];
+    [self setStatusMessage:[self addTimeStamp:message] withColor:[UIColor blackColor]];
 }
 
 - (void)setErrorMessage:(NSString *)message {
-    [self setStatusMessage:message withColor:[UIColor redColor]];
+    [self setStatusMessage:[self addTimeStamp:message] withColor:[UIColor redColor]];
+}
+
+- (NSString *)addTimeStamp:(NSString *)message {
+    NSDateFormatter *formatter;
+    NSString        *dateString;
+
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss - "];
+
+    dateString = [formatter stringFromDate:[NSDate date]];
+
+    return [dateString stringByAppendingString:message];
 }
 
 - (void)setStatusMessage:(NSString *)message withColor:(UIColor *)color {
@@ -150,16 +172,15 @@ NSString* const segueToConfigurationView = @"configure";
     
     char data [MAX_SENDBUF_SIZE];
 	[text getCString:data maxLength:MAX_SENDBUF_SIZE encoding:NSUTF8StringEncoding];
-	return CFDataCreate(NULL, (const UInt8*)data, [text lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
+	return CFDataCreate(NULL, (const UInt8*)data, MIN(MAX_SENDBUF_SIZE,[text lengthOfBytesUsingEncoding:NSUTF8StringEncoding]));
 }
 
 - (IBAction)sendText:(id)sender {
 	CFDataRef dataRef = [self newSendData:[[self textField] text]];
     if (dataRef != NULL) {
         if (CFSocketSendData(socket, srvAddr, dataRef, 0) == 0) {
-            [self setSuccessMessage: [NSString stringWithFormat:@"SEND TEXT:\n#bytes=%li, ip=%@, port=%@", CFDataGetLength(dataRef), [[self configuration] ipAddress], [[self configuration] port]]];
+            [self setSuccessMessage: [NSString stringWithFormat:@"SEND:\n#bytes=%li, ip=%@, port=%@", CFDataGetLength(dataRef), [[self configuration] ipAddress], [[self configuration] port]]];
         } else {
-            NSLog(@"did not send, error=%s",strerror(errno));
             [self setErrorMessage: [NSString stringWithFormat:@"ERROR:\n%s", strerror(errno)]];
         }
 
