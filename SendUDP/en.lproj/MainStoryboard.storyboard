@@ -14,13 +14,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="text to send" minimumFontSize="17" clearButtonMode="whileEditing" id="xdQ-c3-Sgs">
-                                <rect key="frame" x="20" y="37" width="280" height="30"/>
+                                <rect key="frame" x="20" y="25" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iJR-Z8-9tl">
-                                <rect key="frame" x="130" y="87" width="61" height="44"/>
+                                <rect key="frame" x="120" y="75" width="80" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Send">
@@ -37,11 +37,13 @@
                                     <action selector="sendText:" destination="PO9-gH-gIc" eventType="touchUpInside" id="0D0-iP-GPB"/>
                                 </connections>
                             </button>
-                            <webView contentMode="scaleToFill" id="3nQ-KD-Dli">
-                                <rect key="frame" x="20" y="144" width="280" height="258"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KUS-B7-ChG">
+                                <rect key="frame" x="20" y="138" width="280" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </webView>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -53,9 +55,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="StatusField" destination="3nQ-KD-Dli" id="7F8-s4-PoO"/>
                         <outlet property="configButton" destination="UfK-4I-apw" id="oQ1-cE-MjF"/>
                         <outlet property="sendButton" destination="iJR-Z8-9tl" id="Urw-Ra-Gfx"/>
+                        <outlet property="statusLabel" destination="KUS-B7-ChG" id="5mj-Pu-bTX"/>
                         <outlet property="textField" destination="xdQ-c3-Sgs" id="lSM-S1-oi2"/>
                     </connections>
                 </viewController>
@@ -147,7 +149,7 @@
                 <relationship kind="action" name="sendText:"/>
                 <relationship kind="outlet" name="configButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="sendButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="statusField" candidateClass="UIWebView"/>
+                <relationship kind="outlet" name="statusLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
             </relationships>
         </class>

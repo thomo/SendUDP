@@ -105,25 +105,31 @@ NSString* const segueToConfigurationView = @"configure";
 
     [self setConfigButton:nil];
     [self setTextField:nil];
-    [self setStatusField:nil];
     [self setSendButton:nil];
+    [self setStatusLabel:nil];
     [super viewDidUnload];
 }
 
 - (void)updateStatus {
     [[self sendButton] setEnabled:[self enableSendButton]];
+    [self setStatusMessage:@"" withColor:[UIColor blackColor]];
 }
 
 - (BOOL)enableSendButton {
     return socket != NULL && srvAddr != NULL;
 }
 
-- (void)addSuccessMessage:(NSString *)message {
-
+- (void)setSuccessMessage:(NSString *)message {
+    [self setStatusMessage:message withColor:[UIColor blackColor]];
 }
 
-- (void)addErrorMessage:(NSString *)message {
+- (void)setErrorMessage:(NSString *)message {
+    [self setStatusMessage:message withColor:[UIColor redColor]];
+}
 
+- (void)setStatusMessage:(NSString *)message withColor:(UIColor *)color {
+    [[self statusLabel] setText:message];
+    [[self statusLabel] setTextColor:color];
 }
 
 #pragma mark -
@@ -138,6 +144,10 @@ NSString* const segueToConfigurationView = @"configure";
 }
 
 - (CFDataRef)newSendData:(NSString *)text {
+    if ([text length] == 0) {
+        return NULL;
+    }
+    
     char data [MAX_SENDBUF_SIZE];
 	[text getCString:data maxLength:MAX_SENDBUF_SIZE encoding:NSUTF8StringEncoding];
 	return CFDataCreate(NULL, (const UInt8*)data, [text lengthOfBytesUsingEncoding:NSUTF8StringEncoding]);
@@ -147,15 +157,15 @@ NSString* const segueToConfigurationView = @"configure";
 	CFDataRef dataRef = [self newSendData:[[self textField] text]];
     if (dataRef != NULL) {
         if (CFSocketSendData(socket, srvAddr, dataRef, 0) == 0) {
-            [self addSuccessMessage: [NSString stringWithFormat:@"SEND: bytes=%li, ip=%@, port=%@", CFDataGetLength(dataRef), [[self configuration] ipAddress], [[self configuration] port]]];
+            [self setSuccessMessage: [NSString stringWithFormat:@"SEND TEXT:\n#bytes=%li, ip=%@, port=%@", CFDataGetLength(dataRef), [[self configuration] ipAddress], [[self configuration] port]]];
         } else {
             NSLog(@"did not send, error=%s",strerror(errno));
-            [self addErrorMessage: [NSString stringWithFormat:@"ERROR: %s", strerror(errno)]];
+            [self setErrorMessage: [NSString stringWithFormat:@"ERROR:\n%s", strerror(errno)]];
         }
 
         CFRelease(dataRef);
     } else {
-        [self addErrorMessage: @""];
+        [self setStatusMessage:@"no data to send" withColor:[UIColor blackColor]];
     }
 }
 @end

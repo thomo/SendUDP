@@ -15,7 +15,7 @@
 @property (nonatomic, retain) Configuration *configuration;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
-@property (weak, nonatomic) IBOutlet UIWebView *statusField;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
 - (IBAction)sendText:(id)sender;
 
