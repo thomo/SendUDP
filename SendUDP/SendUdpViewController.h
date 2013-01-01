@@ -13,5 +13,10 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *configButton;
 @property (nonatomic, retain) Configuration *configuration;
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
+@property (weak, nonatomic) IBOutlet UIWebView *statusField;
+
+- (IBAction)sendText:(id)sender;
 
 @end
