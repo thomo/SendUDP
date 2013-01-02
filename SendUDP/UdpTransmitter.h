@@ -18,5 +18,8 @@
 
 - (BOOL)readyToTransmit;
 
+- (BOOL)isReachable;
 
 @end
+
+#define UdpTransmitterReachabilityChangedNotification @"UdpTransmitterReachabilityChangedNotification"

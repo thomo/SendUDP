@@ -9,6 +9,7 @@
 #import "SendUdpViewController.h"
 #import "ConfigurationViewController.h"
 #import "UdpTransmitter.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface SendUdpViewController ()
 @property (nonatomic, retain) UdpTransmitter *udpTransmitter;
@@ -32,6 +33,8 @@ NSString* const segueToConfigurationView = @"configure";
 - (void)registerObserver {
     [[self configuration] addObserver:self forKeyPath:@"ipAddress" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
     [[self configuration] addObserver:self forKeyPath:@"port" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:UdpTransmitterReachabilityChangedNotification object: nil];
 }
 
 - (void)deregisterObserver {
@@ -43,9 +46,15 @@ NSString* const segueToConfigurationView = @"configure";
     if (object == [self configuration]) {
         [self configUdpTransmitter];
         [self updateStatus];
+        [self updateSendButtonStatus];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
+}
+
+- (void)reachabilityChanged:(NSNotification* )note {
+	[self updateReachability];
+    [self updateSendButtonStatus];
 }
 
 #pragma mark -
@@ -61,6 +70,8 @@ NSString* const segueToConfigurationView = @"configure";
 
     [self configUdpTransmitter];
     [self updateStatus];
+    [self updateReachability];
+    [self updateSendButtonStatus];
 }
 
 - (void)initConfigButton {
@@ -83,21 +94,28 @@ NSString* const segueToConfigurationView = @"configure";
     [self setTextField:nil];
     [self setSendButton:nil];
     [self setStatusLabel:nil];
+    [self setNetworkStatusLabel:nil];
     [super viewDidUnload];
 }
 
 - (void)updateStatus {
     if ([[self configuration] isValid] && [self udpTransmitter]) {
         if ( [[self udpTransmitter] readyToTransmit]) {
-            [[self sendButton] setEnabled:true];
             [self setStatusMessage:@"" withColor:[UIColor blackColor]];
         } else {
             [self setStatusMessage:[[self udpTransmitter] statusMessage] withColor:[UIColor blackColor]];
         }
     } else {
-        [[self sendButton] setEnabled:false];
         [self setStatusMessage:@"Please enter a valid receiver configuration." withColor:[UIColor blackColor]];
     }
+}
+
+- (void)updateReachability {
+    [[self networkStatusLabel] setText:[[self udpTransmitter] isReachable] ? @"" : @"no network connection available"];
+}
+
+- (void)updateSendButtonStatus {
+    [[self sendButton] setEnabled:[[self configuration] isValid] && [self udpTransmitter] && [[self udpTransmitter] isReachable] && [[self udpTransmitter] readyToTransmit]];
 }
 
 - (void)setSuccessMessage:(NSString *)message {
@@ -127,13 +145,16 @@ NSString* const segueToConfigurationView = @"configure";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:segueToConfigurationView]) {
+        [[self view] endEditing:YES];
+
         ConfigurationViewController *configViewController = [segue destinationViewController];
-        
         configViewController.configuration = [self configuration];
     }
 }
 
 - (IBAction)sendText:(id)sender {
+    [[self view] endEditing:YES];
+
     BOOL success = [[self udpTransmitter] transmit:[[self textField] text]];
     NSString *msg = [[self udpTransmitter] statusMessage];
     if (success) {
