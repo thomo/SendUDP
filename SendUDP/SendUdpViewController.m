@@ -87,12 +87,12 @@ NSString* const segueToConfigurationView = @"configure";
 }
 
 - (void)updateStatus {
-    if ([[self configuration] isValid]) {
-        if ([self udpTransmitter] && [[self udpTransmitter] readyToTransmit]) {
+    if ([[self configuration] isValid] && [self udpTransmitter]) {
+        if ( [[self udpTransmitter] readyToTransmit]) {
             [[self sendButton] setEnabled:true];
             [self setStatusMessage:@"" withColor:[UIColor blackColor]];
         } else {
-            [self setStatusMessage:@"Please check network setup and receiver configuration." withColor:[UIColor blackColor]];
+            [self setStatusMessage:[[self udpTransmitter] statusMessage] withColor:[UIColor blackColor]];
         }
     } else {
         [[self sendButton] setEnabled:false];

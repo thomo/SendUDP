@@ -7,9 +7,11 @@
 //
 
 #import "UdpTransmitter.h"
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+#import <sys/socket.h>
+#import <netinet/in.h>
+#import <arpa/inet.h>
+
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @interface UdpTransmitter ()
     @property (nonatomic, retain) NSString *serverInfo;
@@ -79,7 +81,46 @@
 }
 
 - (BOOL)readyToTransmit {
-    return socket != NULL && srvAddr != NULL;
+    if (! (socket != NULL && srvAddr != NULL)) {
+        [self setStatusMessage:@"no valid configuration"];
+        return NO;
+    }
+
+    struct sockaddr_in nullAddress;
+
+    bzero(&nullAddress, sizeof(nullAddress));
+    nullAddress.sin_len = sizeof(nullAddress);
+    nullAddress.sin_family = AF_INET;
+
+    SCNetworkReachabilityRef ref = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr*) &nullAddress);
+
+    SCNetworkReachabilityFlags flags;
+    SCNetworkReachabilityGetFlags(ref, &flags);
+
+    if (!(flags & kSCNetworkReachabilityFlagsReachable)) {
+        [self setStatusMessage:@"Please check your network connection."];
+        return NO;
+    }
+
+    if (!(flags & kSCNetworkReachabilityFlagsConnectionRequired)) {
+        [self setStatusMessage:@""];
+        return YES;
+    }
+
+    if (((flags & kSCNetworkReachabilityFlagsConnectionOnDemand) ||
+         (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic)) &&
+        !(flags & kSCNetworkReachabilityFlagsInterventionRequired)) {
+        [self setStatusMessage:@""];
+        return YES;
+    }
+
+    if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN) {
+        [self setStatusMessage:@""];
+        return YES;
+    }
+
+    [self setStatusMessage:@"Please check your network connection."];
+    return NO;
 }
 
 @end
