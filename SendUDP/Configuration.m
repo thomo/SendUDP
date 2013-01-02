@@ -11,7 +11,7 @@
 @implementation Configuration
 
 -(BOOL)isValid {
-    return [self ipAddress] != NULL && [self port] != NULL;
+    return [self ipAddress] != nil && [self port] != nil;
 }
 
 @end
