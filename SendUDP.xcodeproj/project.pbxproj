@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D09D185169438AF0065C986 /* UdpTransmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D09D184169438AF0065C986 /* UdpTransmitter.m */; };
 		2D2D33F0168D9DE00000017F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D2D33EF168D9DE00000017F /* SenTestingKit.framework */; };
 		2D2D33F1168D9DE00000017F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D565C5C1689E51E00B43C49 /* UIKit.framework */; };
 		2D2D33F2168D9DE00000017F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D565C5E1689E51E00B43C49 /* Foundation.framework */; };
@@ -49,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D09D183169438AF0065C986 /* UdpTransmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UdpTransmitter.h; sourceTree = "<group>"; };
+		2D09D184169438AF0065C986 /* UdpTransmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UdpTransmitter.m; sourceTree = "<group>"; };
 		2D2D33EE168D9DE00000017F /* SendUDPTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SendUDPTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D2D33EF168D9DE00000017F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		2D2D33F5168D9DE00000017F /* SendUDPTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SendUDPTests-Info.plist"; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 				2D565C7F1689EB7600B43C49 /* SendUdpViewController.h */,
 				2D565C801689EB7600B43C49 /* SendUdpViewController.m */,
 				2D565C631689E51E00B43C49 /* Supporting Files */,
+				2D09D183169438AF0065C986 /* UdpTransmitter.h */,
+				2D09D184169438AF0065C986 /* UdpTransmitter.m */,
 			);
 			path = SendUDP;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 				2D565C96168B3A4300B43C49 /* EditableTableViewCell.m in Sources */,
 				2D2D3407168DE8CE0000017F /* IpAddressValidator.m in Sources */,
 				2DE07A0116905E70006F364D /* IpPortValidator.m in Sources */,
+				2D09D185169438AF0065C986 /* UdpTransmitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

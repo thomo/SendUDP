@@ -8,48 +8,21 @@
 
 #import "SendUdpViewController.h"
 #import "ConfigurationViewController.h"
-
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-
+#import "UdpTransmitter.h"
 
 @interface SendUdpViewController ()
+@property (nonatomic, retain) UdpTransmitter *udpTransmitter;
 @end
 
-@implementation SendUdpViewController {
-	CFDataRef srvAddr;
-    CFSocketRef socket;
-}
+@implementation SendUdpViewController 
 
 NSString* const segueToConfigurationView = @"configure";
 
-#define MAX_SENDBUF_SIZE 220
-
 #pragma mark -
 #pragma mark communication
-- (void)setupSocketAndSrvAddr {
-    [self releaseSocketAndSrvAddr];
-
+- (void)configUdpTransmitter {
     if ([[self configuration] isValid]) {
-        socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_DGRAM, IPPROTO_UDP, 0, NULL, NULL);
-
-        struct sockaddr_in addr;
-        memset(&addr, 0, sizeof(addr));
-        addr.sin_len = sizeof(addr);
-        addr.sin_family = AF_INET;
-        addr.sin_port = htons([[[self configuration] port] intValue]);
-        addr.sin_addr.s_addr = inet_addr([[[self configuration] ipAddress] UTF8String]);
-        srvAddr = addr.sin_addr.s_addr != INADDR_NONE ? CFDataCreate(NULL, (const UInt8*)&addr, sizeof(addr)) : NULL;
-    }
-}
-
-- (void)releaseSocketAndSrvAddr {
-    if (socket) {
-        CFRelease(socket); socket = NULL;
-    }
-	if (srvAddr) {
-        CFRelease(srvAddr); srvAddr = NULL;
+        [self setUdpTransmitter: [[UdpTransmitter alloc] initWithIp:[[self configuration] ipAddress] port:[[self configuration] port]]];
     }
 }
 
@@ -68,13 +41,11 @@ NSString* const segueToConfigurationView = @"configure";
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == [self configuration]) {
-        NSLog(@"configuration has changed");
-        [self setupSocketAndSrvAddr];
+        [self configUdpTransmitter];
         [self updateStatus];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
-
 }
 
 #pragma mark -
@@ -84,11 +55,11 @@ NSString* const segueToConfigurationView = @"configure";
     [super viewDidLoad];
 
 	// Do any additional setup after loading the view.
-    [self initConfigButton];
     [self registerObserver];
 
-    [self setupSocketAndSrvAddr];
+    [self initConfigButton];
 
+    [self configUdpTransmitter];
     [self updateStatus];
 }
 
@@ -107,8 +78,7 @@ NSString* const segueToConfigurationView = @"configure";
 - (void)viewDidUnload {
     [self deregisterObserver];
 
-    [self releaseSocketAndSrvAddr];
-
+    [self setUdpTransmitter:nil];
     [self setConfigButton:nil];
     [self setTextField:nil];
     [self setSendButton:nil];
@@ -117,36 +87,34 @@ NSString* const segueToConfigurationView = @"configure";
 }
 
 - (void)updateStatus {
-    [[self sendButton] setEnabled:[self readyToSend]];
-    if ([self readyToSend]) {
-        [self setStatusMessage:@"" withColor:[UIColor blackColor]];
+    if ([[self configuration] isValid]) {
+        if ([self udpTransmitter] && [[self udpTransmitter] readyToTransmit]) {
+            [[self sendButton] setEnabled:true];
+            [self setStatusMessage:@"" withColor:[UIColor blackColor]];
+        } else {
+            [self setStatusMessage:@"Please check network setup and receiver configuration." withColor:[UIColor blackColor]];
+        }
     } else {
-        [self setStatusMessage:@"Please enter valid receiver configuration." withColor:[UIColor blackColor]];
+        [[self sendButton] setEnabled:false];
+        [self setStatusMessage:@"Please enter a valid receiver configuration." withColor:[UIColor blackColor]];
     }
 }
 
-- (BOOL)readyToSend{
-    return socket != NULL && srvAddr != NULL;
-}
-
 - (void)setSuccessMessage:(NSString *)message {
-    [self setStatusMessage:[self addTimeStamp:message] withColor:[UIColor blackColor]];
+    NSString *msg = [NSString stringWithFormat:@"%@ - %@", [self timeStamp], message];
+    [self setStatusMessage:msg withColor:[UIColor blackColor]];
 }
 
 - (void)setErrorMessage:(NSString *)message {
-    [self setStatusMessage:[self addTimeStamp:message] withColor:[UIColor redColor]];
+    NSString *msg = [NSString stringWithFormat:@"%@ - %@", [self timeStamp], message];
+    [self setStatusMessage:msg withColor:[UIColor redColor]];
 }
 
-- (NSString *)addTimeStamp:(NSString *)message {
-    NSDateFormatter *formatter;
-    NSString        *dateString;
+- (NSString *)timeStamp {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
 
-    formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm:ss - "];
-
-    dateString = [formatter stringFromDate:[NSDate date]];
-
-    return [dateString stringByAppendingString:message];
+    return [formatter stringFromDate:[NSDate date]];
 }
 
 - (void)setStatusMessage:(NSString *)message withColor:(UIColor *)color {
@@ -165,28 +133,13 @@ NSString* const segueToConfigurationView = @"configure";
     }
 }
 
-- (CFDataRef)newSendData:(NSString *)text {
-    if ([text length] == 0) {
-        return NULL;
-    }
-    
-    char data [MAX_SENDBUF_SIZE];
-	[text getCString:data maxLength:MAX_SENDBUF_SIZE encoding:NSUTF8StringEncoding];
-	return CFDataCreate(NULL, (const UInt8*)data, MIN(MAX_SENDBUF_SIZE,[text lengthOfBytesUsingEncoding:NSUTF8StringEncoding]));
-}
-
 - (IBAction)sendText:(id)sender {
-	CFDataRef dataRef = [self newSendData:[[self textField] text]];
-    if (dataRef != NULL) {
-        if (CFSocketSendData(socket, srvAddr, dataRef, 0) == 0) {
-            [self setSuccessMessage: [NSString stringWithFormat:@"SEND:\n#bytes=%li, ip=%@, port=%@", CFDataGetLength(dataRef), [[self configuration] ipAddress], [[self configuration] port]]];
-        } else {
-            [self setErrorMessage: [NSString stringWithFormat:@"ERROR:\n%s", strerror(errno)]];
-        }
-
-        CFRelease(dataRef);
+    BOOL success = [[self udpTransmitter] transmit:[[self textField] text]];
+    NSString *msg = [[self udpTransmitter] statusMessage];
+    if (success) {
+        [self setSuccessMessage:msg];
     } else {
-        [self setStatusMessage:@"no data to send" withColor:[UIColor blackColor]];
+        [self setErrorMessage:msg];
     }
 }
 @end

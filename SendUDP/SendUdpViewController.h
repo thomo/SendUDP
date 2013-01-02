@@ -12,10 +12,11 @@
 @interface SendUdpViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *configButton;
-@property (nonatomic, retain) Configuration *configuration;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+
+@property (nonatomic, retain) Configuration *configuration;
 
 - (IBAction)sendText:(id)sender;
 
