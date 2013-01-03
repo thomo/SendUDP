@@ -9,10 +9,13 @@
 #import "SendUdpViewController.h"
 #import "ConfigurationViewController.h"
 #import "UdpTransmitter.h"
+#import "ReachabilityChecker.h"
+
 #import <SystemConfiguration/SystemConfiguration.h>
 
 @interface SendUdpViewController ()
 @property (nonatomic, retain) UdpTransmitter *udpTransmitter;
+@property (nonatomic, retain) ReachabilityChecker *reachabilityChecker;
 @end
 
 @implementation SendUdpViewController 
@@ -32,7 +35,7 @@ NSString* const segueToConfigurationView = @"configure";
     [[self configuration] addObserver:self forKeyPath:@"ipAddress" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
     [[self configuration] addObserver:self forKeyPath:@"port" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:UdpTransmitterReachabilityChangedNotification object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:ReachabilityCheckerChangedNotification object: nil];
 }
 
 - (void)deregisterObserver {
@@ -68,6 +71,8 @@ NSString* const segueToConfigurationView = @"configure";
 
     [self initConfigButton];
 
+    [self setReachabilityChecker:[[ReachabilityChecker alloc] init]];
+
     [self configUdpTransmitter];
 
     [self updateView];
@@ -88,7 +93,9 @@ NSString* const segueToConfigurationView = @"configure";
 - (void)viewDidUnload {
     [self deregisterObserver];
 
+    [self setReachabilityChecker:nil];
     [self setUdpTransmitter:nil];
+
     [self setConfigButton:nil];
     [self setTextField:nil];
     [self setSendButton:nil];
@@ -103,13 +110,13 @@ NSString* const segueToConfigurationView = @"configure";
         [[self udpTransmitter] readyToTransmit]; // also update the statusMessage
 
         [self setStatusMessage:[[self udpTransmitter] statusMessage] withColor:[UIColor blackColor]];
-        [[self networkStatusLabel] setText:[[self udpTransmitter] isReachable] ? @"" : @"no network connection available"];
-        [[self sendButton] setEnabled:[[self udpTransmitter] isReachable] && [[self udpTransmitter] readyToTransmit]];
+        [[self sendButton] setEnabled:[[self reachabilityChecker] isReachable] && [[self udpTransmitter] readyToTransmit]];
     } else {
         [self setStatusMessage:@"Please enter a valid receiver configuration." withColor:[UIColor blackColor]];
-        [[self networkStatusLabel] setText:@""];
         [[self sendButton] setEnabled:FALSE];
     }
+
+    [[self networkStatusLabel] setText:[[self reachabilityChecker] isReachable] ? @"" : @"no network connection available"];
 }
 
 - (void)setSuccessMessage:(NSString *)message {

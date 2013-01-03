@@ -11,9 +11,6 @@
 #import <netinet/in.h>
 #import <arpa/inet.h>
 
-#import <Foundation/Foundation.h>
-#import <SystemConfiguration/SystemConfiguration.h>
-
 @interface UdpTransmitter ()
     @property (nonatomic, retain) NSString *serverInfo;
 @end
@@ -21,7 +18,6 @@
 @implementation UdpTransmitter{
 	CFDataRef srvAddr;
     CFSocketRef socket;
-    SCNetworkReachabilityRef reachabilityRef;
 }
 
 #define MAX_SENDBUF_SIZE 220
@@ -40,46 +36,18 @@
             srvAddr = addr.sin_addr.s_addr != INADDR_NONE ? CFDataCreate(NULL, (const UInt8*)&addr, sizeof(addr)) : NULL;
 
             [self setServerInfo:[NSString stringWithFormat:@"ip=%@, port=%@", ipAddress, port]];
-            
-            [self startNofifier: &addr];
         }
     }
     return self;
 }
 
-- (void)startNofifier:(struct sockaddr_in *)addr{
-    SCNetworkReachabilityContext	context = {0, (__bridge void *)(self), NULL, NULL, NULL};
-
-    reachabilityRef = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (struct sockaddr *) addr);
-    if(SCNetworkReachabilitySetCallback(reachabilityRef, ReachabilityCallback, &context))
-    {
-        SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
-    }
-}
-
-- (void) stopNotifier {
-	if(reachabilityRef!= NULL) {
-		SCNetworkReachabilityUnscheduleFromRunLoop(reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
-	}
-}
-
 - (void)dealloc {
-    [self stopNotifier];
-
     if (socket) {
         CFRelease(socket); socket = NULL;
     }
 	if (srvAddr) {
         CFRelease(srvAddr); srvAddr = NULL;
     }
-	if(reachabilityRef!= NULL)
-	{
-		CFRelease(reachabilityRef);
-	}
-}
-
-static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void* info) {
-	[[NSNotificationCenter defaultCenter] postNotificationName:UdpTransmitterReachabilityChangedNotification object:nil];
 }
 
 - (BOOL)transmit:(NSString *)message {
@@ -119,55 +87,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }
     [self setStatusMessage:@""];
     return YES;
-}
-
-- (BOOL)isReachable
-{
-    if (reachabilityRef) {
-        SCNetworkReachabilityFlags flags;
-        if (SCNetworkReachabilityGetFlags(reachabilityRef, &flags))
-        {
-            if((flags & kSCNetworkReachabilityFlagsReachable) && (flags & kSCNetworkReachabilityFlagsIsDirect))
-            {
-                return YES;
-            }
-
-            if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
-            {
-                // if target host is not reachable
-                return NO;
-            }
-
-            if ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0)
-            {
-                // if target host is reachable and no connection is required
-                //  then we'll assume (for now) that your on Wi-Fi
-                return YES;
-            }
-
-            if ((((flags & kSCNetworkReachabilityFlagsConnectionOnDemand ) != 0) ||
-                 (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic) != 0))
-            {
-                // ... and the connection is on-demand (or on-traffic) if the
-                //     calling application is using the CFSocketStream or higher APIs
-
-                if ((flags & kSCNetworkReachabilityFlagsInterventionRequired) == 0)
-                {
-                    // ... and no [user] intervention is needed
-                    return YES;
-                }
-            }
-
-            if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
-            {
-                // ... but WWAN connections are OK if the calling application
-                //     is using the CFNetwork (CFSocketStream?) APIs.
-                return YES;
-            }
-        }
-        return NO;
-    }
-    return NO;
 }
 
 @end
