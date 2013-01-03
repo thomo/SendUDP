@@ -45,10 +45,10 @@
     return self;
 }
 
-- (void)startNofifier:(const struct sockaddr *)addr{
+- (void)startNofifier:(struct sockaddr_in *)addr{
     SCNetworkReachabilityContext	context = {0, (__bridge void *)(self), NULL, NULL, NULL};
 
-    reachabilityRef = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, addr);
+    reachabilityRef = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (struct sockaddr *) addr);
     if(SCNetworkReachabilitySetCallback(reachabilityRef, ReachabilityCallback, &context))
     {
         SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
