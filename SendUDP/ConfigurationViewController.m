@@ -40,12 +40,12 @@ static NSString *EditableCellIdentifier = @"EditableCellIdentifier";
 - (void)viewWillDisappear:(BOOL)animated {
     NSString *ipAddress = [self.ipAddress.textField text];
     IpAddressValidator *ipValidator = [IpAddressValidator alloc];
-    if ([ipValidator isValid:ipAddress]) {
+    if ([ipValidator isValid:ipAddress] && ![[self.configuration ipAddress] isEqualToString:ipAddress]) {
         [self.configuration setIpAddress:ipAddress];
     }
     NSString *port = [self.port.textField text];
     IpPortValidator *portValidator = [IpPortValidator alloc];
-    if ([portValidator isValid:port]) {
+    if ([portValidator isValid:port] && ![[self.configuration port] isEqualToString:port]) {
         [self.configuration setPort:port];
     }
     [super viewWillDisappear:animated];
