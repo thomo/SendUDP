@@ -59,11 +59,11 @@ static NSString *EditableCellIdentifier = @"EditableCellIdentifier";
     return 2;
 }
 
-- (EditableTableViewCell *)configureCell:(EditableTableViewCell *)cell withTitle:(NSString *)title text:(NSString *)text andPlaceholder:(NSString *)placeholder {
+- (EditableTableViewCell *)configureCell:(EditableTableViewCell *)cell title:(NSString *)title textFieldContent:(NSString *)content placeholder:(NSString *)placeholder {
     cell.title = (UILabel *)[cell viewWithTag:EDITABLECELLTAG_TITLE];
     cell.textField = (UITextField *)[cell viewWithTag:EDITABLECELLTAG_TEXTFIELD];
     cell.title.text = title;
-    cell.textField.text = text;
+    cell.textField.text = content;
     cell.textField.placeholder = placeholder;
     return cell;
 }
@@ -72,9 +72,9 @@ static NSString *EditableCellIdentifier = @"EditableCellIdentifier";
     EditableTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:EditableCellIdentifier];
     
     if (indexPath.row == 0) {
-        self.ipAddress = [self configureCell:cell withTitle:@"IP Address" text:[self.configuration ipAddress] andPlaceholder:@"0.0.0.0"];
+        self.ipAddress = [self configureCell:cell title:@"IP Address" textFieldContent:[self.configuration ipAddress] placeholder:@"0.0.0.0"];
     } else {
-        self.port = [self configureCell:cell withTitle:@"Port" text:[self.configuration port] andPlaceholder:@"0"];;
+        self.port = [self configureCell:cell title:@"Port" textFieldContent:[self.configuration port] placeholder:@"0"];;
     }
     
     return cell;
