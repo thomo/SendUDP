@@ -28,19 +28,21 @@
 
 - (id)initWithIp:(NSString *)ipAddress port:(NSString *)port {
     if (self = [super init]) {
-        socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_DGRAM, IPPROTO_UDP, 0, NULL, NULL);
+        if ([ipAddress length] > 0 && [port length] > 0) {
+            socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_DGRAM, IPPROTO_UDP, 0, NULL, NULL);
 
-        struct sockaddr_in addr;
-        memset(&addr, 0, sizeof(addr));
-        addr.sin_len = sizeof(addr);
-        addr.sin_family = AF_INET;
-        addr.sin_port = htons([port intValue]);
-        addr.sin_addr.s_addr = inet_addr([ipAddress UTF8String]);
-        srvAddr = addr.sin_addr.s_addr != INADDR_NONE ? CFDataCreate(NULL, (const UInt8*)&addr, sizeof(addr)) : NULL;
+            struct sockaddr_in addr;
+            memset(&addr, 0, sizeof(addr));
+            addr.sin_len = sizeof(addr);
+            addr.sin_family = AF_INET;
+            addr.sin_port = htons([port intValue]);
+            addr.sin_addr.s_addr = inet_addr([ipAddress UTF8String]);
+            srvAddr = addr.sin_addr.s_addr != INADDR_NONE ? CFDataCreate(NULL, (const UInt8*)&addr, sizeof(addr)) : NULL;
 
-        [self setServerInfo:[NSString stringWithFormat:@"ip=%@, port=%@", ipAddress, port]];
-
-        [self startNofifier: &addr];
+            [self setServerInfo:[NSString stringWithFormat:@"ip=%@, port=%@", ipAddress, port]];
+            
+            [self startNofifier: &addr];
+        }
     }
     return self;
 }
@@ -121,48 +123,51 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 - (BOOL)isReachable
 {
-	SCNetworkReachabilityFlags flags;
-	if (SCNetworkReachabilityGetFlags(reachabilityRef, &flags))
-	{
-        if((flags & kSCNetworkReachabilityFlagsReachable) && (flags & kSCNetworkReachabilityFlagsIsDirect))
+    if (reachabilityRef) {
+        SCNetworkReachabilityFlags flags;
+        if (SCNetworkReachabilityGetFlags(reachabilityRef, &flags))
         {
-            return YES;
+            if((flags & kSCNetworkReachabilityFlagsReachable) && (flags & kSCNetworkReachabilityFlagsIsDirect))
+            {
+                return YES;
+            }
+
+            if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
+            {
+                // if target host is not reachable
+                return NO;
+            }
+
+            if ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0)
+            {
+                // if target host is reachable and no connection is required
+                //  then we'll assume (for now) that your on Wi-Fi
+                return YES;
+            }
+
+            if ((((flags & kSCNetworkReachabilityFlagsConnectionOnDemand ) != 0) ||
+                 (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic) != 0))
+            {
+                // ... and the connection is on-demand (or on-traffic) if the
+                //     calling application is using the CFSocketStream or higher APIs
+
+                if ((flags & kSCNetworkReachabilityFlagsInterventionRequired) == 0)
+                {
+                    // ... and no [user] intervention is needed
+                    return YES;
+                }
+            }
+
+            if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
+            {
+                // ... but WWAN connections are OK if the calling application
+                //     is using the CFNetwork (CFSocketStream?) APIs.
+                return YES;
+            }
         }
-
-        if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
-        {
-            // if target host is not reachable
-            return NO;
-        }
-
-        if ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0)
-        {
-            // if target host is reachable and no connection is required
-            //  then we'll assume (for now) that your on Wi-Fi
-            return YES;
-        }
-
-        if ((((flags & kSCNetworkReachabilityFlagsConnectionOnDemand ) != 0) ||
-             (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic) != 0))
-        {
-			// ... and the connection is on-demand (or on-traffic) if the
-			//     calling application is using the CFSocketStream or higher APIs
-
-			if ((flags & kSCNetworkReachabilityFlagsInterventionRequired) == 0)
-			{
-				// ... and no [user] intervention is needed
-				return YES;
-			}
-		}
-
-        if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
-        {
-            // ... but WWAN connections are OK if the calling application
-            //     is using the CFNetwork (CFSocketStream?) APIs.
-            return YES;
-        }
-	}
-	return NO;
+        return NO;
+    }
+    return NO;
 }
 
 @end

@@ -22,9 +22,7 @@ NSString* const segueToConfigurationView = @"configure";
 #pragma mark -
 #pragma mark communication
 - (void)configUdpTransmitter {
-    if ([[self configuration] isValid]) {
-        [self setUdpTransmitter: [[UdpTransmitter alloc] initWithIp:[[self configuration] ipAddress] port:[[self configuration] port]]];
-    }
+    [self setUdpTransmitter: [[UdpTransmitter alloc] initWithIp:[[self configuration] ipAddress] port:[[self configuration] port]]];
 }
 
 #pragma mark -
@@ -40,21 +38,23 @@ NSString* const segueToConfigurationView = @"configure";
 - (void)deregisterObserver {
     [[self configuration] removeObserver:self forKeyPath:@"port"];
     [[self configuration] removeObserver:self forKeyPath:@"ipAddress"];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == [self configuration]) {
-        [self configUdpTransmitter];
-        [self updateStatus];
-        [self updateSendButtonStatus];
+        if ([[self configuration]isValid]) {
+            [self configUdpTransmitter];
+            [self updateView];
+        }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
 - (void)reachabilityChanged:(NSNotification* )note {
-	[self updateReachability];
-    [self updateSendButtonStatus];
+	[self updateView];
 }
 
 #pragma mark -
@@ -69,9 +69,8 @@ NSString* const segueToConfigurationView = @"configure";
     [self initConfigButton];
 
     [self configUdpTransmitter];
-    [self updateStatus];
-    [self updateReachability];
-    [self updateSendButtonStatus];
+
+    [self updateView];
 }
 
 - (void)initConfigButton {
@@ -95,27 +94,22 @@ NSString* const segueToConfigurationView = @"configure";
     [self setSendButton:nil];
     [self setStatusLabel:nil];
     [self setNetworkStatusLabel:nil];
+    
     [super viewDidUnload];
 }
 
-- (void)updateStatus {
-    if ([[self configuration] isValid] && [self udpTransmitter]) {
-        if ( [[self udpTransmitter] readyToTransmit]) {
-            [self setStatusMessage:@"" withColor:[UIColor blackColor]];
-        } else {
-            [self setStatusMessage:[[self udpTransmitter] statusMessage] withColor:[UIColor blackColor]];
-        }
+- (void)updateView {
+    if ([[self configuration] isValid]) {
+        [[self udpTransmitter] readyToTransmit]; // also update the statusMessage
+
+        [self setStatusMessage:[[self udpTransmitter] statusMessage] withColor:[UIColor blackColor]];
+        [[self networkStatusLabel] setText:[[self udpTransmitter] isReachable] ? @"" : @"no network connection available"];
+        [[self sendButton] setEnabled:[[self udpTransmitter] isReachable] && [[self udpTransmitter] readyToTransmit]];
     } else {
         [self setStatusMessage:@"Please enter a valid receiver configuration." withColor:[UIColor blackColor]];
+        [[self networkStatusLabel] setText:@""];
+        [[self sendButton] setEnabled:FALSE];
     }
-}
-
-- (void)updateReachability {
-    [[self networkStatusLabel] setText:[[self udpTransmitter] isReachable] ? @"" : @"no network connection available"];
-}
-
-- (void)updateSendButtonStatus {
-    [[self sendButton] setEnabled:[[self configuration] isValid] && [self udpTransmitter] && [[self udpTransmitter] isReachable] && [[self udpTransmitter] readyToTransmit]];
 }
 
 - (void)setSuccessMessage:(NSString *)message {
